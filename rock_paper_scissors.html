@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rock, Paper, Scissors!</title>
+        
+    </head>
+    <body>
+        <script>
+            //let promp_select = prompt('Rock, Paper, Scissors?')
+            function computerPlay() {
+                let rps = Math.floor(Math.random()*3); 
+                let c_rps;
+                switch (rps) {
+                    case 0:
+                        c_rps = 'Rock';
+                        break;
+                    case 1:
+                        c_rps = 'Paper';
+                        break;
+                    case 2:
+                        c_rps = 'Scissors';
+                        break;
+                }
+                return c_rps;
+                
+            }
+        
+            function playRound(playerSelection, computerSelection) {
+
+                ps = playerSelection.toUpperCase();
+                let erg;
+                if (ps='ROCK') {
+                    switch (computerSelection) {
+                     case 'Rock':
+                        erg = "Draw! Rock, Rock";
+                        break;
+                     case 'Paper':
+                        erg = "You Lose! Paper beats Rock";
+                        break;
+                     case 'Scissors':
+                        erg = "You Win! Rock beats Scissors";
+                        break;
+                    }
+                }
+                else if (ps='PAPER') {
+                    switch (computerSelection) {
+                     case 'Rock':
+                        erg = "You Win! Paper beats Rock";
+                        break;
+                     case 'Paper':
+                        erg = "Draw! Paper, Paper";
+                        break;
+                     case 'Scissors':
+                        erg = "You Lose! Scissors beats Papers";
+                        break;
+                    }
+                }
+                else if (ps='SCISSORS') {
+                    switch (computerSelection) {
+                     case 'Rock':
+                        erg = "You Lose! Rock beats Scissors";
+                        break;
+                     case 'Paper':
+                        erg = "You Win! Scissors beats Paper";
+                        break;
+                     case 'Scissors':
+                        erg = "Draw! Scissors, Scissors";
+                        break;
+                    }
+                }
+                else {
+                    erg= 'Wrong Input'
+                }
+
+                
+                return erg;
+
+             }
+
+             function bo5(game_func, times) {
+                 let cpoints = 0;
+                 let ppoints = 0;
+                 let erg;
+                 let promp_select;
+                 let gesamt_erg;
+                 let winner;
+                 for(i=0; i < times; i++) {
+                    promp_select = prompt('Rock, Paper, Scissors?');
+                    erg = game_func(promp_select, computerPlay());
+
+                    if (erg.includes('Win')) {
+                        ppoints += 1;
+                    }
+                    else if (erg.includes('Lose')) {
+                        cpoints += 1;
+                    }
+
+
+                 }
+                 if (ppoints > cpoints) {
+                    winner = 'Du gewinnst!'
+                 }
+                 else if (cpoints > ppoints) {
+                     winner = 'Der Computer gewinnt!'
+                 }
+                 else {
+                     winner = 'Unentschieden!'
+                 };
+                 gesamt_erg = 'Das Ergebnis ist ' + ppoints + ' für dich und ' + cpoints + ' für den Computer. ';
+                 
+                 return gesamt_erg + winner;
+             }
+        </script>
+    </body>
+</html>
