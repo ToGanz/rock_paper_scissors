@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rock, Paper, Scissors!</title>
+        
+    </head>
+    <body>
+
+        <div class='buttons'>
+            <button class='btn'>Rock</button>
+            <button class='btn'>Paper</button>
+            <button class='btn'>Scissors</button>
+        </div>
+        <div class='results'>
+            <p id='rounds'>Rounds: 0</p>
+            <p id='pScore'>Your Score: 0</p>
+            <p id='cScore'>Computer's Score: 0</p>
+            <p id='winner'></p>
+        </div>
+
+        <script>
+
+            function computerPlay() {
+                let rps = Math.floor(Math.random()*3); 
+                let c_rps;
+                switch (rps) {
+                    case 0:
+                        c_rps = 'Rock';
+                        break;
+                    case 1:
+                        c_rps = 'Paper';
+                        break;
+                    case 2:
+                        c_rps = 'Scissors';
+                        break;
+                }
+                return c_rps;
+                
+            }
+
+            function playRound(playerSelection, computerSelection) {
+
+                ps = playerSelection.toLowerCase();
+                let erg;
+                
+                if ((ps == 'rock' && computerSelection == 'Scissors') 
+                    || (ps == 'paper' && computerSelection == 'Rock')
+                    || (ps == 'scissors' && computerSelection == 'Paper')) {
+                    erg = 'p';
+                } else if ((ps == 'rock' && computerSelection == 'Paper') 
+                    || (ps == 'paper' && computerSelection == 'Scissors')
+                    || (ps == 'scissors' && computerSelection == 'Rock')) {
+                    erg = 'c';
+                } else {
+                    erg = 'd';
+                }
+
+                console.log(erg);
+                return erg;
+             }
+
+
+            function trackScore(erg) {
+                let rounds = document.querySelector('#rounds');
+                let nRounds = Number(rounds.textContent.toString().substr(-1));
+                nRounds += 1;
+                rounds.textContent = "Rounds: " + nRounds;
+
+
+                let pScore = document.querySelector('#pScore');
+                let npScore = Number(pScore.textContent.toString().substr(-1));
+
+                let cScore = document.querySelector('#cScore');
+                let ncScore = Number(cScore.textContent.toString().substr(-1));
+                if (erg == 'p') {
+                    npScore += 1;
+                    pScore.textContent = "Your Score: " + npScore;
+                } else if (erg == 'c') {
+                    ncScore += 1;
+                    cScore.textContent = "Computer's Score: " + ncScore;
+                }
+
+                let winner = document.querySelector('#winner');
+                if (npScore == 5) {
+                    winner.textContent = 'You Win!';
+                } else if (npScore == 5) {
+                    winner.textContent = 'Computer Wins!';
+                }
+            }
+
+             function btnClick (btn) {
+                 
+               btn.addEventListener('click', (e) => {
+                let erg = playRound(btn.textContent, computerPlay());
+                trackScore(erg);
+                });
+             };
+
+             let btns = document.querySelectorAll('.btn');
+             btns.forEach((button) => btnClick(button));
+
+
+        </script>
+    </body>
+</html>
